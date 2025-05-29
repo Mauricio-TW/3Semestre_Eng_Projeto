@@ -1,29 +1,30 @@
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+import unittest
 from tarefa.tarefa import Tarefa
 from tarefa.builder import TarefaBuilder
-from tarefa.factory import criar_tarefa_simples
+from tarefa.factory import criar_tarefa_simples, criar_tarefa_com_prioridade
 
-class TestTarefa(unittest.TestCase):
+class TesteTarefa(unittest.TestCase):
 
-    def test_criacao_simples(self):
-        tarefa = criar_tarefa_simples("Comprar leite")
-        self.assertEqual(tarefa.titulo, "Comprar leite")
-        self.assertEqual(tarefa.prioridade, "normal")
+    def test_criar_tarefa(self):
+        t = Tarefa("Estudar")
+        self.assertEqual(t.titulo, "Estudar")
+        self.assertEqual(t.prioridade, "normal")
 
-    def test_builder_completo(self):
-        tarefa = (TarefaBuilder()
-                 .set_titulo("Estudar Python")
-                 .set_descricao("Focar em padrões de projeto")
-                 .set_prioridade("alta")
-                 .set_vencimento("2025-06-01")
-                 .build())
-        self.assertEqual(tarefa.titulo, "Estudar Python")
-        self.assertEqual(tarefa.descricao, "Focar em padrões de projeto")
+    def test_builder(self):
+        builder = TarefaBuilder()
+        tarefa = (builder.set_titulo("Fazer café")
+                         .set_descricao("Antes da reunião")
+                         .set_prioridade("alta")
+                         .build())
+        self.assertEqual(tarefa.titulo, "Fazer café")
         self.assertEqual(tarefa.prioridade, "alta")
-        self.assertEqual(tarefa.vencimento, "2025-06-01")
+        self.assertEqual(tarefa.descricao, "Antes da reunião")
+
+    def test_factory(self):
+        t1 = criar_tarefa_simples("Ler livro")
+        t2 = criar_tarefa_com_prioridade("Enviar email", "alta")
+        self.assertEqual(t1.titulo, "Ler livro")
+        self.assertEqual(t2.prioridade, "alta")
 
 if __name__ == "__main__":
     unittest.main()

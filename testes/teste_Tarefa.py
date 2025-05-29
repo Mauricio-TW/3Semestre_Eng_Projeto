@@ -1,5 +1,10 @@
-import unittest
-from tarefa import tarefa, TarefaBuilder, criar_tarefa_simples
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from tarefa.tarefa import Tarefa
+from tarefa.builder import TarefaBuilder
+from tarefa.factory import criar_tarefa_simples
 
 class TestTarefa(unittest.TestCase):
 

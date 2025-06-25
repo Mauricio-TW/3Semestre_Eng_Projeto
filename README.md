@@ -19,6 +19,12 @@ Este projeto implementa um sistema simples de gerenciamento de tarefas, utilizan
 - **Testes Unitários:** Novos testes foram criados para validar o comportamento dos `Decorators` e da `Facade`, garantindo que as tarefas importantes e notificadas exibem as informações esperadas.
 - **Melhoria na Manutenção e Extensibilidade:** Com a aplicação dos padrões estruturais, o código fica mais modular, facilitando a adição de novos tipos de tarefas e comportamentos sem impactar o código existente.
 
+## Funcionalidades da 3ª Etapa
+
+- **Padrão Observer:** A classe `Tarefa` foi adaptada para funcionar como Subject que notifica observadores sobre mudanças, principalmente quando a prioridade é alterada. Implementado um `LoggerObserver` que recebe notificações e imprime logs no console, demonstrando o padrão `Observer` em ação.
+- **Padrão Strategy:** Adicionada a possibilidade de calcular dinamicamente a prioridade da tarefa com diferentes estratégias. Criadas estratégias como `PrioridadePorData` e `PrioridadePorDescricao` que determinam a prioridade com base em atributos da tarefa (como data de vencimento e conteúdo da descrição). A classe `Tarefa` foi adaptada para aceitar uma estratégia de prioridade e recalcular sua prioridade automaticamente.
+- **Integração Strategy + Observer:** A prioridade calculada por uma estratégia pode disparar notificações para observadores inscritos, promovendo alto desacoplamento e flexibilidade.
+
 ## Estrutura do Projeto
 
 3Semestre_Eng_Projeto/
@@ -26,15 +32,20 @@ Este projeto implementa um sistema simples de gerenciamento de tarefas, utilizan
 ├── README.md              # Documentação do projeto
 ├── tarefa/                # Pacote com as implementações
 │   ├── __init__.py
-│   ├── tarefa.py          # Definição da classe Tarefa
+│   ├── tarefa.py          # Definição da classe Tarefa (com Observer e Strategy)
 │   ├── builder.py         # Implementação do padrão Builder
 │   ├── factory.py         # Implementação do padrão Factory
 │   ├── decorators.py      # Implementação dos padrões Decorator
-│   └── facade.py          # Implementação do padrão Facade
+│   ├── facade.py          # Implementação do padrão Facade
+│   ├── observer.py        # Implementação do padrão Observer (Subject/Observer)
+│   ├── logger_observer.py # Observer concreto que imprime logs
+│   └── strategy.py        # Implementação do padrão Strategy
 └── testes/                # Testes unitários
     ├── teste_tarefa.py
     ├── teste_decorator.py
-    └── teste_facade.py
+    ├── teste_facade.py
+    ├── teste_observer.py
+    └── teste_strategy.py
 
 
 ## Como Executar os Testes
@@ -46,8 +57,8 @@ py -m unittest discover testes
 
 Você deve ver uma saída indicando que todos os testes foram executados com sucesso:
 
-...
+..........
 ----------------------------------------------------------------------
-Ran 7 tests in 0.000s
+Ran 10 tests in 0.001s
 
 OK
